@@ -1,4 +1,4 @@
-FROM lochnair/wheezy-mips:latest
+FROM lochnair/wheezy-mipsel:latest
 
 COPY root/ /
 
