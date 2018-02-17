@@ -3,7 +3,7 @@ FROM lochnair/wheezy-mips:latest
 COPY root/ /
 
 RUN apt-get update && \
-apt-get install -y build-essential flex bison bc git && \
+apt-get install -y build-essential dh-autoreconf flex bison bc git pkg-config && \
 apt-get build-dep -y linux && \
 rm -rf /var/lib/apt/lists/*
 
