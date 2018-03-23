@@ -40,7 +40,7 @@ make install
 
 # GCC - stage 1
 cd $BUILD_ROOT/gcc
-$SRC_ROOT/gcc-$GCC_VER/configure --prefix=/opt/cross --target=$TARGET --disable-multilib --disable-sim --enable-languages=c,c++ --with-abi=64 --with-mips-plt
+$SRC_ROOT/gcc-$GCC_VER/configure --prefix=/opt/cross --target=$TARGET --disable-multilib --disable-sim --enable-languages=c,c++ --with-abi=32 --with-mips-plt
 make -j$(nproc) all-gcc
 make install-gcc
 
@@ -48,10 +48,10 @@ make install-gcc
 cd $BUILD_ROOT/musl
 $SRC_ROOT/musl-$MUSL_VER/configure --prefix=/opt/cross/$TARGET/ --host=$TARGET
 make obj/crt/crt1.o
-make obj/crt/mips64/crti.o
-make obj/crt/mips64/crtn.o
+make obj/crt/mips/crti.o
+make obj/crt/mips/crtn.o
 install obj/crt/crt1.o /opt/cross/$TARGET/lib
-install obj/crt/mips64/* /opt/cross/$TARGET/lib
+install obj/crt/mips/* /opt/cross/$TARGET/lib
 $TARGET-gcc -nostdlib -nostartfiles -shared -x c /dev/null -o /opt/cross/$TARGET/lib/libc.so
 make install-headers
 
