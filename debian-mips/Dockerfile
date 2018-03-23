@@ -7,8 +7,8 @@ RUN apt-get -y install ca-certificates git
 RUN git clone https://git.qemu.org/git/qemu.git
 WORKDIR /qemu
 RUN git checkout "tags/v$QEMU_VER" -b "stable-$QEMU_VER"
-RUN git config --global user.email "builder@docker" && git config --global user.name "Docker Builder"
-RUN wget -O- https://gist.githubusercontent.com/Lochnair/8aac1b6315649e09fb2062768e400800/raw/699d9ffbac8527fdbbfd7339a067ccee6928545e/linux-user-add-option-to-intercept-execve-syscalls.patch | git am
+RUN wget -O- https://github.com/resin-io/qemu/commit/5851cf671e9d9dbfaa0127d31c2ef6d2833db875.diff | patch -p1
+RUN wget -O- https://github.com/resin-io/qemu/commit/4406381ba21e5488d3f11d8868bd5b8ff1b82bed.diff | patch -p1
 RUN ./configure \
         --target-list=mips-linux-user \
         --static \
