@@ -25,7 +25,7 @@ RUN apk add --no-cache \
         wget
 
 # Let any user elevate to root
-RUN chmod +s /usr/bin/su-exec
+RUN chmod +s /sbin/su-exec
 
 # Fix /tmp permissions
 RUN chmod 777 /tmp
