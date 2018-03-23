@@ -3,7 +3,7 @@ ARG QEMU_VER=2.11.1
 COPY sources.list /etc/apt/sources.list
 RUN apt-get update
 RUN apt-get -y build-dep qemu
-RUN apt-get -y install ca-certificates git
+RUN apt-get -y install ca-certificates git wget
 RUN git clone https://git.qemu.org/git/qemu.git
 WORKDIR /qemu
 RUN git checkout "tags/v$QEMU_VER" -b "stable-$QEMU_VER"
