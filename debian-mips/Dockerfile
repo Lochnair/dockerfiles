@@ -30,12 +30,15 @@ RUN file mips-linux-user/qemu-mips
 
 FROM debian:stretch as bootstrap
 RUN apt-get update && \
-    apt-get -y install debootstrap
+    apt-get -y install debootstrap wget
 COPY --from=qemu /qemu/mips-linux-user/qemu-mips /usr/bin/qemu-mips-static
 COPY --from=qemu /qemu/mips-linux-user/qemu-mips /bootstrap/usr/bin/qemu-mips-static
-RUN qemu-mips-static --help
 RUN debootstrap --arch mips --foreign stretch /bootstrap
-RUN chroot /bootstrap /usr/bin/qemu-mips-static -execve /usr/bin/qemu-mips-static /debootstrap/debootstrap --second-stage
+RUN wget -O /bootstrap/bin/mount https://dl.lochnair.net/dummy.mips
+RUN chroot /bootstrap /usr/bin/qemu-mips-static -execve /bin/bash -c '/debootstrap/debootstrap --second-stage'
+RUN mv -v /bootstrap/bin/sh /bootstrap/bin/sh.real
+COPY sh-shim /bootstrap/bin/sh
+COPY sh-shim /bootstrap/usr/bin/sh-shim
 
 FROM scratch
 COPY --from=bootstrap /bootstrap/. /
