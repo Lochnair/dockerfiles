@@ -5,5 +5,6 @@ RUN chmod +s /sbin/su-exec
 RUN usermod -u 107 sdk
 RUN groupmod -g 111 sdk
 RUN chown -R sdk:sdk /home/sdk
+RUN adduser sdk abuild
 USER sdk
 CMD ["/bin/sh"]
