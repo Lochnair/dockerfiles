@@ -5,7 +5,7 @@ LABEL Maintainer="Nils Andreas Svee <me@lochnair.net>"
 ARG BINUTILS_VER=2.23.2
 ARG GCC_VER=8.2.0
 ARG GMP_VER=6.1.2
-ARG ISL_VER=0.20
+ARG ISL_VER=0.18
 ARG MPC_VER=1.1.0
 ARG MPFR_VER=4.0.1
 
