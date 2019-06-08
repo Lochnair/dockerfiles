@@ -5,3 +5,5 @@ LABEL Maintainer="Nils Andreas Svee <me@lochnair.net>"
 
 ENV ARCH=mips
 ENV TARGET="$ARCH-linux-musl"
+
+RUN /build_toolchain.sh
