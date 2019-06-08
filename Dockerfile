@@ -15,5 +15,3 @@ ENV MUSL_VER=1.1.22
 ENV PATH="/opt/cross/bin:${PATH}"
 
 COPY root/ /
-
-ONBUILD RUN /build_toolchain.sh
