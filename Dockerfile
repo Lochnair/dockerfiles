@@ -1,5 +1,5 @@
 ARG ARCH=mips
-ARG TARGET="$ARCH-linux-musl"
+ARG TARGET="mips-linux-musl"
 FROM lochnair/musl-buildenv:latest
 
 LABEL Description="musl build environment for MIPS/MIPSel"
