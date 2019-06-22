@@ -1,6 +1,7 @@
 FROM debian:stretch-slim
 
-RUN apt-get update && \
+RUN dpkg --add-architecture mipsel && \
+    apt-get update && \
     apt-get -y install build-essential curl dpkg-cross g++-mipsel-linux-gnu wget && \
     rm -rf /var/lib/apt/lists/*
 
