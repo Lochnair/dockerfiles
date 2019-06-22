@@ -1,7 +1,7 @@
 FROM debian:stretch-slim
 
 RUN apt-get update && \
-    apt-get -y install build-essential dpkg-cross g++-mips-linux-gnu && \
+    apt-get -y install build-essential curl dpkg-cross g++-mips-linux-gnu wget && \
     rm -rf /var/lib/apt/lists/*
 
 RUN \
