@@ -2,4 +2,4 @@ FROM alpine:latest
 
 RUN apk add --no-cache --update \
         yarn
-RUN yarn install hexo-cli
+RUN yarn global add hexo-cli
