@@ -10,3 +10,5 @@ gcc -o /usr/bin/su-exec su-exec.c && \
 rm su-exec.c && \
 chmod +s /usr/bin/su-exec && \
 chmod 777 /tmp
+
+COPY root/ /
