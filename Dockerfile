@@ -1,7 +1,7 @@
 FROM debian:buster
 
 RUN apt-get update && \
-    apt-get -y install build-essential curl wget && \
+    apt-get -y install build-essential curl debhelper wget && \
     rm -rf /var/lib/apt/lists/*
 
 RUN \
