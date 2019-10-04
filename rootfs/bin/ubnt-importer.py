@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import os
 import re
 import shutil
@@ -51,7 +52,7 @@ def filter_releases(_releases):
 
     for major in versions_to_import:
         for minor in versions_to_import[major]:
-            branches[major + "." + minor] = []
+            branches['v' + major + "." + minor] = []
 
     for rel in _releases:
         if rel['category__slug'] != "firmware" or rel['sdk__id'] is None:
@@ -68,7 +69,7 @@ def filter_releases(_releases):
         if minor not in versions_to_import[major]:
             continue
 
-        branches[major + "." + minor].append(rel)
+        branches['v' + major + "." + minor].append(rel)
 
     for branch, releases in branches.items():
         branches[branch] = natsorted(releases, key=itemgetter('version'))
@@ -139,6 +140,25 @@ def add_all_except_git(repo, index, repo_path):
     index.add(repo.untracked_files)
 
 
+def apply_patches(repo, branch, version):
+    _git = repo.git
+    patch_folder = os.path.join(os.getcwd(), "patches")
+    branch_patches = os.path.join(patch_folder, branch)
+    version_patches = os.path.join(patch_folder, branch, version)
+    patches = []
+
+    for f in os.listdir(branch_patches):
+        if os.path.isfile(os.path.join(branch_patches, f)):
+            patches.append(os.path.join(branch_patches, f))
+
+    if os.path.isdir(version_patches):
+        for f in os.listdir(version_patches):
+            if os.path.isfile(os.path.join(version_patches, f)):
+                patches.append(os.path.join(version_patches, f))
+
+    _git.am(patches)
+
+
 def main():
     repo_path = os.path.join(os.getcwd(), "repo")
 
@@ -159,7 +179,7 @@ def main():
     for branch, releases in branches.items():
         print('Processing branch:', branch)
 
-        stock_branch = "v{}/stock".format(branch)
+        stock_branch = "{}/stock".format(branch)
 
         new_branch = stock_branch in repo.branches
 
@@ -201,7 +221,9 @@ def main():
                                        committer=committer)
             repo.head.reference = Head(repo, 'refs/heads/' + release_branch)
             repo.head.reference.commit = commit
+            apply_patches(repo, branch, rel['version'])
 
 
 if __name__ == "__main__":
     main()
+
