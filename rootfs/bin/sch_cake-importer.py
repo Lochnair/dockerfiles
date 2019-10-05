@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import os
+import subprocess
 from pathlib import Path
 from shutil import copy2
 
@@ -69,6 +70,18 @@ def main():
         # no changes found
         if len(diff) < 1:
             continue
+
+        defconfigs = Path(os.path.join(repo_path, 'arch', 'mips', 'configs')).glob("ubnt_*_*defconfig")
+
+        for p in defconfigs:
+            subprocess.run([os.path.join(repo_path, 'scripts', 'config'), '--file', str(p), '--module', 'NET_SCH_CAKE'])
+            repo.index.add([str(p)])
+
+        if os.path.isfile(os.path.join(repo_path, '.config')):
+            subprocess.run(
+                [os.path.join(repo_path, 'scripts', 'config'), '--file', os.path.join(repo_path, '.config'), '--module',
+                 'NET_SCH_CAKE'])
+            repo.index.add(['.config'])
 
         repo.index.commit(str.format('Import sch_cake source (commit {}): {}', cake_commit, cake_msg), author=author,
                           committer=committer)
