@@ -64,7 +64,7 @@ def main():
 
         repo.index.add(['net/sched'])
 
-        diff = repo.index.diff(cake_branch)
+        diff = repo.index.diff(cake_branch.commit)
 
         # no changes found
         if len(diff) < 1:
