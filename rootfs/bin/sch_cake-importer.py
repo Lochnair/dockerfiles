@@ -35,7 +35,7 @@ def main():
 
         version = b.name.split('/')[0]
 
-        print(version)
+        print(str.format('-> {}', version))
 
         try:
             cake_branch = repo.heads[version + '/sch_cake']
@@ -50,39 +50,48 @@ def main():
         with open(os.path.join(repo_path, 'net', 'sched', 'Kconfig'), 'a+') as f:
             f.seek(0)
             if 'NET_SCH_CAKE' not in f.read():
+                print('-> Appending Kconfig option')
                 f.writelines(['\n'] + kconfig_lines)
 
         with open(os.path.join(repo_path, 'net', 'sched', 'Makefile'), 'a+') as f:
             f.seek(0)
             if 'NET_SCH_CAKE' not in f.read():
+                print('-> Appending sch_cake to Makefile')
                 f.writelines(['obj-$(CONFIG_NET_SCH_CAKE)	+= sch_cake.o'])
 
         for f in Path(cake_path).glob("*.c"):
+            print(str.format('-> Copying file: {}', f))
             copy2(str(f), os.path.join(repo_path, "net", "sched"))
 
         for f in Path(cake_path).glob("*.h"):
+            print(str.format('-> Copying file: {}', f))
             copy2(str(f), os.path.join(repo_path, "net", "sched"))
 
+        print('-> Adding files to index')
         repo.index.add(['net/sched'])
 
         diff = repo.index.diff(cake_branch.commit)
 
         # no changes found
         if len(diff) < 1:
+            print('-> No changes found.')
             continue
 
         defconfigs = Path(os.path.join(repo_path, 'arch', 'mips', 'configs')).glob("ubnt_*_*defconfig")
 
         for p in defconfigs:
+            print(str.format('-> Enabling NET_SCH_CAKE in: {}', str(p)))
             subprocess.run([os.path.join(repo_path, 'scripts', 'config'), '--file', str(p), '--module', 'NET_SCH_CAKE'])
             repo.index.add([str(p)])
 
         if os.path.isfile(os.path.join(repo_path, '.config')):
+            print('-> Enabling NET_SCH_CAKE in .config')
             subprocess.run(
                 [os.path.join(repo_path, 'scripts', 'config'), '--file', os.path.join(repo_path, '.config'), '--module',
                  'NET_SCH_CAKE'])
             repo.index.add(['.config'])
 
+        print('-> Committing changes')
         repo.index.commit(str.format('Import sch_cake source (commit {}): {}', cake_commit, cake_msg), author=author,
                           committer=committer)
 
