@@ -56,8 +56,6 @@ def main():
             if 'NET_SCH_CAKE' not in f.read():
                 f.writelines(['obj-$(CONFIG_NET_SCH_CAKE)	+= sch_cake.o'])
 
-        source_files = Path(cake_path).glob("*.c") + Path(cake_path).glob("*.h")
-
         for f in Path(cake_path).glob("*.c"):
             copy2(str(f), os.path.join(repo_path, "net", "sched"))
 
