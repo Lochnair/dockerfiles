@@ -30,12 +30,17 @@ ENV QUEUE_GID=300
 
 COPY --from=builder /home/sdk/packages /etc/apk/packages
 COPY --from=builder /etc/apk/keys /etc/apk/keys/
+COPY entrypoint.sh /entrypoint.sh
 
 RUN apk add --no-cache --repository /etc/apk/packages/main opensmtpd
 RUN apk add --no-cache --repository /etc/apk/packages/testing opensmtpd-extras
-RUN apk add shadow
+RUN apk add --no-cache shadow
 
 RUN cp -rv /etc/smtpd /etc/smtpd.dist
 
 VOLUME /etc/smtpd
 VOLUME /var/spool/smtpd
+
+ENTRYPOINT ["/entrypoint.sh"]
+
+CMD ["/usr/sbin/smtpd", "-d"]
