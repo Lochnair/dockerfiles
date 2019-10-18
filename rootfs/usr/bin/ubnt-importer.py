@@ -200,15 +200,19 @@ def main():
             sdk_path = download_sdk(get_sdk_url(rel))
             kernel_path = None
 
-            with tarfile.open(sdk_path, mode='r') as tar:
-                member = get_kernel_member(tar)
+            try:
+                with tarfile.open(sdk_path, mode='r') as tar:
+                    member = get_kernel_member(tar)
 
-                if not member:
-                    print("  -> Couldn't find kernel archive.")
-                    continue
+                    if not member:
+                        print("  -> Couldn't find kernel archive.")
+                        continue
 
-                kernel_path = member.name
-                tar.extractall(members=[member])
+                    kernel_path = member.name
+                    tar.extractall(members=[member])
+            except ReadError:
+                print("  -> Unable to open archive.")
+                continue
 
             os.remove(sdk_path)
 
