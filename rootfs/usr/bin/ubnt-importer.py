@@ -210,7 +210,7 @@ def main():
 
                     kernel_path = member.name
                     tar.extractall(members=[member])
-            except ReadError:
+            except tarfile.ReadError:
                 print("  -> Unable to open archive.")
                 continue
 
