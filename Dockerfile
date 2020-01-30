@@ -1,4 +1,4 @@
-FROM alpine:edge
+FROM alpine:3.11
 
 RUN apk add --no-cache --update alpine-sdk autoconf su-exec
 RUN chmod +s /sbin/su-exec
