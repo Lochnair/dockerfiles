@@ -3,6 +3,7 @@ FROM alpine:3.12
 RUN set -x \
     && addgroup -g 101 -S nginx \
     && adduser -S -D -H -u 101 -h /var/cache/nginx -s /sbin/nologin -G nginx -g nginx nginx \
+    && apk update \
     && apk add nginx $(apk search -q nginx-mod | tr '\n' ' ') \
 # Bring in tzdata so users could set the timezones through the environment
 # variables
