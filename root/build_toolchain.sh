@@ -7,11 +7,11 @@ SRC_ROOT="/usr/src/sources"
 mkdir -p $BUILD_ROOT/binutils $BUILD_ROOT/gcc $SRC_ROOT
 cd /usr/src
 wget -nv \
-	https://github.com/MarvellEmbeddedProcessors/Octeon-Toolchain/raw/master/toolchain-src-249.0.tar.bz2
+	https://github.com/MarvellEmbeddedProcessors/Octeon-Toolchain/raw/master/toolchain-src-265.0.tar.bz2
 
 # Extract source archives
 cd $SRC_ROOT
-tar -xvf ../toolchain-src-249.0.tar.bz2
+tar -xvf ../toolchain-src-265.0.tar.bz2
 
 # Move sources
 mv -v toolchain/gits/binutils .
