@@ -1,6 +1,6 @@
-FROM alpine:3.15
+FROM alpine:3.19
 
-RUN apk add --no-cache --update alpine-sdk autoconf su-exec
+RUN apk add --no-cache --update alpine-sdk autoconf su-exec cmake meson ninja-build argp-standalone
 RUN chmod +s /sbin/su-exec
 RUN addgroup sdk
 RUN adduser -G sdk -s /bin/sh -D sdk
