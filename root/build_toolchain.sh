@@ -11,7 +11,7 @@ wget -nv \
 
 # Extract source archives
 cd $SRC_ROOT
-tar -xvf ../toolchain-src-265.0.tar.bz2
+tar -xvf ../toolchain-src-*.0.tar.bz2
 
 # Move sources
 mv -v toolchain/gits/binutils .
