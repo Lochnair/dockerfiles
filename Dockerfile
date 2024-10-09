@@ -6,6 +6,13 @@ ENV PATH="/opt/cross/bin:${PATH}"
 
 COPY root/ /
 
+RUN \
+cat > /etc/apt/sources.list <<EOF \
+deb http://archive.debian.org/debian/ stretch main contrib non-free \
+deb http://archive.debian.org/debian/ stretch-proposed-updates main contrib non-free \
+deb http://archive.debian.org/debian-security stretch/updates main contrib non-free \
+EOF
+
 RUN /build_toolchain.sh
 RUN \
 wget https://raw.githubusercontent.com/ncopa/su-exec/master/su-exec.c && \
