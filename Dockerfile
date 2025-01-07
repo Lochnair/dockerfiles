@@ -1,4 +1,4 @@
-FROM alpine:3.19
+FROM alpine:3.21
 
 RUN apk add --no-cache --update alpine-sdk autoconf su-exec cmake meson ninja-build argp-standalone gdb
 RUN chmod +s /sbin/su-exec
