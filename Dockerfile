@@ -1,4 +1,4 @@
-FROM alpine:3.21
+FROM alpine:edge
 
 ARG PUID=102
 ARG PGID=104
