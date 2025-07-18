@@ -1,9 +1,9 @@
 FROM debian:stretch-slim
 
-RUN echo $' \n\
-    deb http://archive.debian.org/debian/ stretch main contrib non-free \n\
-    deb http://archive.debian.org/debian/ stretch-proposed-updates main contrib non-free \n\
-    deb http://archive.debian.org/debian-security stretch/updates main contrib non-free' > /etc/apt/sources.list && \
+RUN \
+    echo 'deb http://archive.debian.org/debian/ stretch main contrib non-free' > /etc/apt/sources.list && \
+    echo 'deb http://archive.debian.org/debian/ stretch-proposed-updates main contrib non-free' >> /etc/apt/sources.list && \
+    echo 'deb http://archive.debian.org/debian-security stretch/updates main contrib non-free' >> /etc/apt/sources.list && \
     dpkg --add-architecture mipsel && \
     apt-get update && \
     apt-get -y install build-essential curl dpkg-cross g++-mipsel-linux-gnu git wget && \
