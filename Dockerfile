@@ -9,7 +9,7 @@ RUN dpkg --add-architecture arm64 && \
     crossbuild-essential-armhf \
     crossbuild-essential-arm64 \
     libssl-dev:arm64 \
-    wget curl
+    wget curl file
 
 RUN mkdir -p /root/.ssh
 RUN chmod 644 /root/.ssh
