@@ -1,14 +1,11 @@
-FROM debian:trixie
-
+FROM --platform=linux/arm64/v8 debian:trixie
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN dpkg --add-architecture arm64 && \
+RUN \
     apt-get clean && apt-get update && \
     apt-get install -y \
-    git bc sshfs bison flex libssl-dev python3 make kmod libc6-dev libncurses5-dev \
-    crossbuild-essential-armhf \
-    crossbuild-essential-arm64 \
-    libssl-dev:arm64 \
+    git bc sshfs bison flex libssl-dev python3 make kmod libc6-dev libncurses5-dev build-essential \
+    libssl-dev \
     wget curl file
 
 RUN mkdir -p /root/.ssh
