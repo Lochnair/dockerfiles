@@ -3,11 +3,11 @@ Types: deb deb-src
 URIs: https://deb.debian.org/debian/
 Suites: trixie trixie-backports trixie-updates
 Components: main contrib non-free non-free-firmware
-Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+Signed-By: /usr/share/keyrings/debian-archive-keyring.pgp
 
 # Security Updates
 Types: deb
 URIs: https://deb.debian.org/debian-security/
 Suites: trixie-security
 Components: main contrib non-free non-free-firmware
-Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+Signed-By: /usr/share/keyrings/debian-archive-keyring.pgp
