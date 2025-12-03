@@ -2,7 +2,7 @@ FROM debian:trixie
 
 COPY root/ /
 
-RUN rm -v /etc/apt/sources.list && \
+RUN rm -fv /etc/apt/sources.list && \
     apt-get update && \
     apt-get -y install bc build-essential curl debhelper flex git libncurses-dev libssl-dev python3-dev unzip wget zlib1g-dev && \
     rm -rf /var/lib/apt/lists/*
