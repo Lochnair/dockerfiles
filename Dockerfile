@@ -1,7 +1,7 @@
 FROM alpine:edge
 
-ARG PUID=102
-ARG PGID=104
+ARG PUID=1002
+ARG PGID=1001
 
 RUN apk add --no-cache --update alpine-sdk autoconf doas su-exec sudo cmake meson ninja-build argp-standalone gdb && \
     chmod +s /sbin/su-exec && \
